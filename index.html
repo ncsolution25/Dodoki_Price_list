@@ -1,451 +1,294 @@
+# Create a single-file HTML landing page with embedded JS for search/filter/sort
+html = r"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agricultural & Veterinary Supplies - Price List September 2025</title>
-    <style>
-        :root {
-            --primary: #2c6e3c;
-            --secondary: #4a8c5a;
-            --accent: #f8a31b;
-            --light: #f5f9f6;
-            --dark: #1a3c24;
-            --gray: #6c757d;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        /*.logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            margin-right: 1rem;
-        }*/
-        
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .container {
-            width: 95%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .intro {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .intro p {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-        }
-        
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        .category-filter {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .category-filter select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            background: white;
-        }
-        
-        .price-list {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        th {
-            background-color: var(--light);
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-        
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .product-name {
-            font-weight: 500;
-        }
-        
-        .price {
-            font-weight: 600;
-            color: var(--primary);
-            white-space: nowrap;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 2rem;
-            gap: 0.5rem;
-        }
-        
-        .pagination button {
-            padding: 0.5rem 1rem;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .pagination button.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        footer {
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            th, td {
-                padding: 0.75rem 0.5rem;
-            }
-            
-            .filters {
-                flex-direction: column;
-            }
-            
-            .product-name {
-                max-width: 200px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem 0.5rem;
-            }
-            
-            th:nth-child(1), td:nth-child(1) {
-                display: none;
-            }
-        }
-        
-        .highlight {
-            background-color: #fff8e1;
-        }
-        
-        .category-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            background: var(--light);
-            color: var(--primary);
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-top: 0.25rem;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dodoki Investment Tanzania — Catalogue</title>
+  <meta name="description" content="Dodoki Investment Tanzania — Veterinary & livestock supplies catalogue with prices in TZS." />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Smooth focus rings */
+    .focus-ring:focus { outline: 2px solid black; outline-offset: 2px; }
+    /* Badge */
+    .badge { display:inline-flex; align-items:center; border:1px solid #e5e7eb; border-radius:9999px; padding:0.25rem 0.5rem; font-size:0.75rem; }
+    /* Card */
+    .card { border:1px solid #e5e7eb; border-radius:1rem; box-shadow: 0 10px 25px -15px rgba(0,0,0,.2); }
+  </style>
 </head>
-<body>
-    <header>
-        <div class="logo-container">
-            <div class="logo"></div>
-            <div>
-                <h1>Agricultural & Veterinary Supplies</h1>
-                <p>Price List - September 2025</p>
-            </div>
+<body class="min-h-screen bg-white text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-gray-100 flex items-center justify-center text-sm font-bold">DI</div>
+        <div>
+          <h1 class="text-xl font-semibold">Dodoki Investment Tanzania</h1>
+          <p class="text-xs text-gray-500">Veterinary &amp; livestock supplies</p>
         </div>
-    </header>
-    
-    <div class="container">
-        <div class="intro">
-            <h2>Quality Products for Farming and Animal Health</h2>
-            <p>Browse our comprehensive catalog of veterinary medicines, animal feed, supplements, and farming equipment.</p>
-            <p>All prices are in Tanzania Shillings.</p>
-        </div>
-        
-        <div class="filters">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
-            </div>
-            <div class="category-filter">
-                <select id="categoryFilter" onchange="filterProducts()">
-                    <option value="">All Categories</option>
-                    <option value="medicine">Medicines & Injectables</option>
-                    <option value="feed">Animal Feed & Supplements</option>
-                    <option value="equipment">Farming Equipment</option>
-                    <option value="vaccine">Vaccines</option>
-                    <option value="other">Other Supplies</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="price-list">
-            <table id="priceTable">
-                <thead>
-                    <tr>
-                        <th width="8%">Code</th>
-                        <th width="62%">Product Description</th>
-                        <th width="30%">Retail Price (TZS)</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Products will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="pagination" id="pagination">
-            <!-- Pagination will be inserted here by JavaScript -->
-        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-2">
+        <a class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-xl border focus-ring" href="tel:+255758335926">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          +255 758 335 926
+        </a>
+        <a class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-xl border focus-ring" href="tel:+255758786338">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          +255 758 786 338
+        </a>
+        <a class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-xl border focus-ring" href="mailto:sales@dodokiinvestmenttz.co.tz">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z" fill="none"/><path d="M22 6l-10 7L2 6"/>
+          </svg>
+          sales@dodokiinvestmenttz.co.tz
+        </a>
+      </div>
     </div>
-    
-    <footer>
-        <div class="container">
-            <h3>Contact Us</h3>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>📞</span>
-                    <span>+255 XXX XXX XXX</span>
-                </div>
-                <div class="contact-item">
-                    <span>✉️</span>
-                    <span>info@agrovet.com</span>
-                </div>
-                <div class="contact-item">
-                    <span>🏢</span>
-                    <span>Dar es Salaam, Tanzania</span>
-                </div>
-            </div>
-            <p>© 2025 Next Century Sloution (NC). All rights reserved.</p>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-6 items-center">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Quality animal health products at fair prices</h2>
+        <p class="mt-3 text-gray-600">Browse our catalogue, search by name, and filter by category. Prices shown in Tanzanian Shillings (TZS).</p>
+        <div class="mt-5 flex gap-3 flex-wrap">
+          <a href="https://www.instagram.com/dodokiinvestment?utm_source=ig_web_button_share_sheet&igsh=ZGcycjQydzkwcmI1" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border focus-ring">
+            <!-- Instagram icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7zm0 2.5A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm5-2.75a.75.75 0 1 0 .75.75.75.75 0 0 0-.75-.75z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100065198761805" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border focus-ring">
+            <!-- Facebook icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2h-3a5 5 0 0 0-5 5v3H6v4h3v8z"/></svg>
+            Facebook
+          </a>
+          <a href="https://wa.me/255758335926" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border focus-ring">
+            <!-- WhatsApp icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A10 10 0 0 0 4.6 19.4L3 22l2.7-.7A10 10 0 1 0 20 3.9zm-8 16.1a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8.1 8.1 0 1 1 12 20z"/><path d="M16.2 13.6c-.2-.1-1.1-.6-1.3-.7-.2-.1-.4-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0-1-.5-1.8-1.1-2.5-1.9-.2-.3-.5-.6-.3-.8.1-.2.3-.3.5-.5.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2 1 .2 1.4.1.4-.1 1.1-.4 1.2-.9.1-.5.1-1 .1-1.1 0-.1-.2-.2-.4-.3z"/></svg>
+            WhatsApp
+          </a>
         </div>
-    </footer>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input id="searchInput" class="flex-1 border rounded-xl px-3 py-2 focus-ring" placeholder="Search product name..." />
+        </div>
+        <div class="mt-3 flex flex-wrap items-center gap-2">
+          <div id="categoryBadges" class="flex flex-wrap gap-2"></div>
+          <div class="ml-auto flex gap-2 items-center">
+            <label class="text-sm text-gray-500">Sort:</label>
+            <select id="sortSelect" class="border rounded-xl px-3 py-2 text-sm focus-ring">
+              <option value="relevance">Relevance</option>
+              <option value="priceAsc">Price (Low → High)</option>
+              <option value="priceDesc">Price (High → Low)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Product data from the price list
-        const products = [
-            {id: 1, name: "ADENO(FAV 1)", price: "96,000.00", category: "vaccine"},
-            {id: 2, name: "ASCATEN", price: "2,500.00", category: "medicine"},
-            {id: 3, name: "ASHISH-ASHIALBEN 1L", price: "18,000.00", category: "medicine"},
-            {id: 4, name: "ASHISH-ASHIALBEN 500MLS", price: "11,500.00", category: "medicine"},
-            {id: 5, name: "ASHISH-ASHIDOX G 1000G", price: "145,000.00", category: "feed"},
-            {id: 6, name: "ASHISH-ASHIDOX G 100G", price: "16,000.00", category: "feed"},
-            {id: 7, name: "ASHISH-ASHIENRO BH ORAL,100MLS", price: "14,000.00", category: "medicine"},
-            {id: 8, name: "ASHISH-ASHIENRO 10% ORAL LIQUID 1L", price: "65,000.00", category: "medicine"},
-            {id: 9, name: "ASHISH-ASHIENRO 10% ORAL LIQUID 100ml", price: "9,000.00", category: "medicine"},
-            {id: 10, name: "ASHISH-ASHIENRO 10% 100ml", price: "9,500.00", category: "medicine"},
-            {id: 11, name: "ASHISH-ASHIOXY 10% 100ML INJECTION", price: "6,500.00", category: "medicine"},
-            {id: 12, name: "ASHISH-ASHIOXY 20% LA INJECTION 100ML", price: "8,500.00", category: "medicine"},
-            {id: 13, name: "ASHISH- ASAMPRO 20%@25GM", price: "4,000.00", category: "medicine"},
-            {id: 14, name: "ASHISH-ASAMPRO 20%, 100GM", price: "9,000.00", category: "medicine"},
-            {id: 15, name: "ASHISH-ASHIOXY 20% LA 100MLS", price: "10,500.00", category: "medicine"},
-            {id: 16, name: "ASHISH-ASHIOXY 20% 100GM", price: "13,000.00", category: "medicine"},
-            {id: 17, name: "ASHISH-ASHIOXY 20% 25GM", price: "3,500.00", category: "medicine"},
-            {id: 18, name: "ASHISH-ASHIOXY CHICK 100GM", price: "7,000.00", category: "medicine"},
-            {id: 19, name: "ASHISH-ASHULPHA 5", price: "1,000.00", category: "medicine"},
-            {id: 20, name: "ASHISH-ASHIVITA POWDER 100G", price: "5,000.00", category: "feed"},
-            // More products would be added here in a real implementation
-            {id: 221, name: "hoof disk", price: "230,000.00", category: "equipment"},
-            {id: 222, name: "surgical drape", price: "30,000.00", category: "equipment"},
-            {id: 223, name: "lamp bottle teat", price: "5,000.00", category: "equipment"},
-            {id: 224, name: "calf bottle teat", price: "5,000.00", category: "equipment"}
-        ];
+  <!-- Catalogue -->
+  <section id="catalogue">
+    <div class="max-w-6xl mx-auto px-4 pb-16">
+      <div class="overflow-x-auto rounded-2xl border">
+        <table class="min-w-full text-sm" id="productTable">
+          <thead class="bg-gray-50">
+            <tr class="text-left">
+              <th class="px-4 py-3">S/N</th>
+              <th class="px-4 py-3">Product</th>
+              <th class="px-4 py-3">Category</th>
+              <th class="px-4 py-3">Price (TZS)</th>
+            </tr>
+          </thead>
+          <tbody id="productTbody"></tbody>
+        </table>
+      </div>
+      <div id="countInfo" class="mt-4 text-sm text-gray-500"></div>
+    </div>
+  </section>
 
-        // Variables for pagination
-        let currentPage = 1;
-        const rowsPerPage = 20;
-        let filteredProducts = [...products];
+  <!-- Contact -->
+  <section class="bg-gray-50 border-t">
+    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-5">
+      <div>
+        <h3 class="text-lg font-semibold">Contact</h3>
+        <p class="mt-2 text-gray-600">Reach out for orders, quotes, or delivery options.</p>
+      </div>
+      <div class="space-y-2">
+        <a href="tel:+255758335926" class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
+          </svg> +255 758 335 926</a>
+        <a href="tel:+255758786338" class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
+          </svg> +255 758 786 338</a>
+        <a href="mailto:sales@dodokiinvestmenttz.co.tz" class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z" fill="none"/><path d="M22 6l-10 7L2 6"/>
+          </svg> sales@dodokiinvestmenttz.co.tz</a>
+      </div>
+      <div>
+        <div class="flex flex-col gap-2">
+          <a class="inline-flex items-center gap-2" href="https://www.instagram.com/dodokiinvestment?utm_source=ig_web_button_share_sheet&igsh=ZGcycjQydzkwcmI1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7zm0 2.5A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm5-2.75a.75.75 0 1 0 .75.75.75.75 0 0 0-.75-.75z"/></svg>
+            @dodokiinvestment</a>
+          <a class="inline-flex items-center gap-2" href="https://www.facebook.com/profile.php?id=100065198761805">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2h-3a5 5 0 0 0-5 5v3H6v4h3v8z"/></svg>
+            Dodoki Investment Tanzania</a>
+          <a class="inline-flex items-center gap-2" href="https://wa.me/255758335926">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A10 10 0 0 0 4.6 19.4L3 22l2.7-.7A10 10 0 1 0 20 3.9zm-8 16.1a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8.1 8.1 0 1 1 12 20z"/><path d="M16.2 13.6c-.2-.1-1.1-.6-1.3-.7-.2-.1-.4-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0-1-.5-1.8-1.1-2.5-1.9-.2-.3-.5-.6-.3-.8.1-.2.3-.3.5-.5.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2 1 .2 1.4.1.4-.1 1.1-.4 1.2-.9.1-.5.1-1 .1-1.1 0-.1-.2-.2-.4-.3z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="mt-4">
+          <a href="#catalogue" class="inline-flex items-center px-4 py-2 rounded-2xl border focus-ring">Browse Catalogue</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Initialize the page
-        function initializePage() {
-            displayProducts(currentPage);
-            setupPagination();
-        }
+  <!-- Footer -->
+  <footer class="border-t">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500 flex items-center justify-between">
+      <span>© <span id="year"></span> Dodoki Investment Tanzania</span>
+      <span>Prices subject to change without notice.</span>
+    </div>
+  </footer>
 
-        // Display products for the current page
-        function displayProducts(page) {
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = '';
-            
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedProducts = filteredProducts.slice(start, end);
-            
-            paginatedProducts.forEach(product => {
-                const row = document.createElement('tr');
-                
-                // Add category class for styling
-                row.classList.add(product.category);
-                
-                row.innerHTML = `
-                    <td>${product.id}</td>
-                    <td>
-                        <div class="product-name">${product.name}</div>
-                        <div class="category-badge">${product.category}</div>
-                    </td>
-                    <td class="price">${product.price}</td>
-                `;
-                
-                tableBody.appendChild(row);
-            });
-        }
+  <script>
+    // Products (subset). Add more entries to extend the catalogue.
+    const PRODUCTS = [
+      { no: 1, name: "ADENO(FAV 1)", category: "veterinary equipment and supplies", price: 96000 },
+      { no: 2, name: "ASCATEN", category: "veterinary equipment and supplies", price: 2500 },
+      { no: 3, name: "ASHISH-ASHIALBEN 1L", category: "veterinary equipment and supplies", price: 18000 },
+      { no: 4, name: "ASHISH-ASHIALBEN 500MLS", category: "veterinary equipment and supplies", price: 11500 },
+      { no: 5, name: "ASHISH-ASHIDOX G 1000G", category: "veterinary equipment and supplies", price: 145000 },
+      { no: 6, name: "ASHISH-ASHIDOX G 100G", category: "veterinary equipment and supplies", price: 16000 },
+      { no: 7, name: "ASHISH-ASHIENRO BH ORAL,100MLS", category: "veterinary equipment and supplies", price: 14000 },
+      { no: 8, name: "ASHISH-ASHIENRO 10% ORAL LIQUID 1L", category: "veterinary equipment and supplies", price: 65000 },
+      { no: 9, name: "ASHISH-ASHIENRO 10% ORAL LIQUID 100ml", category: "veterinary equipment and supplies", price: 9000 },
+      { no: 10, name: "ASHISH-ASHIENRO 10% 100ml", category: "veterinary equipment and supplies", price: 9500 },
+      { no: 11, name: "ASHISH-ASHOXY 10% 100ML INJECTION", category: "veterinary equipment and supplies", price: 6500 },
+      { no: 12, name: "ASHISH-ASHOXY 20% LA INJECTION 100ML", category: "veterinary equipment and supplies", price: 8500 },
+      { no: 13, name: "ASHISH- ASAMPRO 20%@25GM", category: "veterinary equipment and supplies", price: 4000 },
+      { no: 14, name: "ASHISH-ASAMPRO 20%, 100GM", category: "veterinary equipment and supplies", price: 9000 },
+      { no: 15, name: "ASHISH-ASHOXY 20% LA 100MLS", category: "veterinary equipment and supplies", price: 10500 },
+      { no: 16, name: "ASHISH-ASHOXY 20% 100GM", category: "veterinary equipment and supplies", price: 13000 },
+      { no: 17, name: "ASHISH-ASHOXY 20% 25GM", category: "veterinary equipment and supplies", price: 3500 },
+      { no: 18, name: "ASHISH-ASHOXY CHICK 100GM", category: "veterinary equipment and supplies", price: 7000 },
+      { no: 19, name: "ASHISH-ASHULPHA 5", category: "veterinary equipment and supplies", price: 1000 },
+      { no: 20, name: "ASHISH-ASHIVITA POWDER 100G", category: "veterinary equipment and supplies", price: 5000 },
+      { no: 21, name: "ASHISH-ASHPIRAZINE 100G", category: "veterinary equipment and supplies", price: 8000 },
+      { no: 22, name: "ASHISH-ASHPIRAZINE 1KG", category: "veterinary equipment and supplies", price: 70000 },
+      { no: 23, name: "ASHISH-ASHTYL 20% 100GM", category: "veterinary equipment and supplies", price: 11000 },
+      { no: 24, name: "ASHISH-ASTRISUL 1KG", category: "veterinary equipment and supplies", price: 120000 },
+      { no: 25, name: "ASHISH-ASTRISUL 480 @100GM", category: "veterinary equipment and supplies", price: 14000 },
+      { no: 26, name: "ASHISH-ASTRISUL 480@25GM", category: "veterinary equipment and supplies", price: 5000 },
+      { no: 27, name: "ASHISH-DIMINASHISH PLUS 2.37g", category: "veterinary equipment and supplies", price: 1000 },
+      { no: 28, name: "ASHISH-DIMINASHISH PLUS 2.36g", category: "veterinary equipment and supplies", price: 1000 },
+      { no: 29, name: "ASHISH-TRYPASHISH 1g", category: "veterinary equipment and supplies", price: 10000 },
+      { no: 30, name: "ASHISH-TRYPASHISH 250g", category: "veterinary equipment and supplies", price: 6000 },
+      { no: 31, name: "ASHISH -ASTRISUL 480@5GM", category: "veterinary equipment and supplies", price: 3000 },
+      { no: 32, name: "ASHISH -ASTRISUL INJECTION-100MLS", category: "veterinary equipment and supplies", price: 12000 },
+      { no: 33, name: "Ashpirazine 100g", category: "veterinary equipment and supplies", price: 8000 },
+      { no: 34, name: "Ashtyl 20% - 100gm", category: "veterinary equipment and supplies", price: 11000 },
+      { no: 35, name: "ASHTYL 20% 100ML INJECTION", category: "veterinary equipment and supplies", price: 11000 },
+      { no: 36, name: "Ashtyl 20% 1kg", category: "veterinary equipment and supplies", price: 90000 },
+      { no: 37, name: "Ashish zerokrim CH bolus", category: "veterinary equipment and supplies", price: 1500 },
+      { no: 38, name: "BRAVECTO CHEW LARGE (1000mg)", category: "animal hygiene and disinfectant", price: 88000 },
+      { no: 39, name: "BRAVECTO CHEW MEDIUM (500mg)", category: "animal hygiene and disinfectant", price: 70000 },
+      { no: 40, name: "BRAVECTO CHEW SMALL (250mg)", category: "animal hygiene and disinfectant", price: 55000 },
+      { no: 41, name: "BRAVECTO SPOT-ON DOG - MEDIUM 500", category: "animal hygiene and disinfectant", price: 76000 },
+      { no: 42, name: "BRAVECTO SPOT-ON DOG - SMALL 250", category: "animal hygiene and disinfectant", price: 55000 },
+      { no: 43, name: "BRAVECTO SPOT-ON DOG - LARGE 1000mg", category: "animal hygiene and disinfectant", price: 95000 },
+      { no: 44, name: "BRAVECTO CHEW 112GM", category: "animal hygiene and disinfectant", price: 50000 },
+      { no: 45, name: "BRAVECTO CHEW EXTRA LARGE 1400MG", category: "animal hygiene and disinfectant", price: 98000 },
+      { no: 46, name: "Delette all@1000mls", category: "veterinary equipment and supplies", price: 100000 },
+      { no: 47, name: "Dellete all@200mls", category: "veterinary equipment and supplies", price: 33600 },
+      { no: 48, name: "sanigma diary blocks@2kg", category: "mineral,vitamins and additives", price: 5000 },
+      { no: 49, name: "sanigma diary blocks@3kg", category: "mineral,vitamins and additives", price: 6000 },
+      { no: 50, name: "sanigma diary blocks@5kg", category: "mineral,vitamins and additives", price: 9000 }
+    ];
 
-        // Set up pagination buttons
-        function setupPagination() {
-            const paginationDiv = document.getElementById('pagination');
-            paginationDiv.innerHTML = '';
-            
-            const pageCount = Math.ceil(filteredProducts.length / rowsPerPage);
-            
-            // Previous button
-            const prevButton = document.createElement('button');
-            prevButton.innerText = '←';
-            prevButton.disabled = currentPage === 1;
-            prevButton.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    displayProducts(currentPage);
-                    setupPagination();
-                }
-            });
-            paginationDiv.appendChild(prevButton);
-            
-            // Page buttons
-            for (let i = 1; i <= pageCount; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.innerText = i;
-                pageButton.classList.toggle('active', i === currentPage);
-                
-                pageButton.addEventListener('click', () => {
-                    currentPage = i;
-                    displayProducts(currentPage);
-                    setupPagination();
-                });
-                
-                paginationDiv.appendChild(pageButton);
-            }
-            
-            // Next button
-            const nextButton = document.createElement('button');
-            nextButton.innerText = '→';
-            nextButton.disabled = currentPage === pageCount;
-            nextButton.addEventListener('click', () => {
-                if (currentPage < pageCount) {
-                    currentPage++;
-                    displayProducts(currentPage);
-                    setupPagination();
-                }
-            });
-            paginationDiv.appendChild(nextButton);
-        }
+    const currency = new Intl.NumberFormat('en-TZ', { style: 'currency', currency: 'TZS', maximumFractionDigits: 0 });
 
-        // Filter products based on search and category
-        function filterProducts() {
-            const searchText = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            
-            filteredProducts = products.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchText);
-                const matchesCategory = category === '' || product.category === category;
-                return matchesSearch && matchesCategory;
-            });
-            
-            currentPage = 1;
-            displayProducts(currentPage);
-            setupPagination();
-        }
+    const tbody = document.getElementById('productTbody');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const categoryBadges = document.getElementById('categoryBadges');
+    const countInfo = document.getElementById('countInfo');
+    const yearSpan = document.getElementById('year');
 
-        // Initialize the page when it loads
-        document.addEventListener('DOMContentLoaded', initializePage);
-    </script>
+    yearSpan.textContent = new Date().getFullYear();
+
+    const categories = Array.from(new Set(PRODUCTS.map(p => p.category)));
+    let activeCategory = 'All';
+
+    function renderBadges() {
+      const all = ['All', ...categories];
+      categoryBadges.innerHTML = '';
+      all.forEach(c => {
+        const b = document.createElement('button');
+        b.className = 'badge focus-ring ' + (activeCategory === c ? 'ring-2 ring-black' : '');
+        b.textContent = c;
+        b.onclick = () => { activeCategory = c; render(); renderBadges(); };
+        categoryBadges.appendChild(b);
+      });
+    }
+
+    function applyFilters() {
+      const q = (searchInput.value || '').toLowerCase();
+      let rows = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
+      if (activeCategory !== 'All') rows = rows.filter(p => p.category === activeCategory);
+      const sort = sortSelect.value;
+      if (sort === 'priceAsc') rows.sort((a,b) => a.price - b.price);
+      if (sort === 'priceDesc') rows.sort((a,b) => b.price - a.price);
+      return rows;
+    }
+
+    function render() {
+      const data = applyFilters();
+      tbody.innerHTML = '';
+      data.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.className = 'border-t hover:bg-gray-50';
+        tr.innerHTML = `
+          <td class="px-4 py-3 font-medium">${p.no}</td>
+          <td class="px-4 py-3">${p.name}</td>
+          <td class="px-4 py-3"><span class="badge">${p.category}</span></td>
+          <td class="px-4 py-3 font-semibold">${currency.format(p.price)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      if (data.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td class="px-4 py-6 text-center text-gray-500" colspan="4">No items match your search.</td>';
+        tbody.appendChild(tr);
+      }
+      countInfo.textContent = `Showing ${data.length} of ${PRODUCTS.length} items. Add more products in the script to complete the catalogue.`;
+    }
+
+    searchInput.addEventListener('input', render);
+    sortSelect.addEventListener('change', render);
+
+    renderBadges();
+    render();
+  </script>
 </body>
 </html>
+"""
+with open("/mnt/data/dodoki-landing.html", "w", encoding="utf-8") as f:
+    f.write(html)
+"/mnt/data/dodoki-landing.html"
