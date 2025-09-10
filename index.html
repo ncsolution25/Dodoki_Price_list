@@ -1,290 +1,2138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dodoki Investment Tanzania — Catalogue</title>
-  <meta name="description" content="Dodoki Investment Tanzania — Veterinary & livestock supplies catalogue with prices in TZS." />
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Smooth focus rings */
-    .focus-ring:focus { outline: 2px solid black; outline-offset: 2px; }
-    /* Badge */
-    .badge { display:inline-flex; align-items:center; border:1px solid #e5e7eb; border-radius:9999px; padding:0.25rem 0.5rem; font-size:0.75rem; }
-    /* Card */
-    .card { border:1px solid #e5e7eb; border-radius:1rem; box-shadow: 0 10px 25px -15px rgba(0,0,0,.2); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodoki - Agricultural Products & Veterinary Supplies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --secondary: #ff9800;
+            --secondary-dark: #f57c00;
+            --accent: #1565c0;
+            --text-dark: #333;
+            --text-light: #666;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+            --header-height: 70px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--header-height);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Category Navigation */
+        .category-nav {
+            background-color: var(--primary-light);
+            padding: 1.2rem 0;
+            position: sticky;
+            top: var(--header-height);
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-btn i {
+            margin-right: 5px;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 2rem 0 4rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--primary-dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .category-title {
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-category {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin: 1rem 0;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        
+        .inquiry-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .inquiry-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-section h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-section p, .footer-section a {
+            margin-bottom: 0.8rem;
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Search and Filter */
+        .search-filter {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .search-box input {
+            flex-grow: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+                padding: 1rem 0;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .category-buttons {
+                gap: 5px;
+            }
+            
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            body {
+                padding-top: 120px;
+            }
+            
+            header {
+                height: auto;
+                position: relative;
+            }
+            
+            .category-nav {
+                top: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            header, .hero, .category-nav, .product-actions, footer {
+                display: none !important;
+            }
+            
+            body {
+                padding: 0;
+                background: white;
+                color: black;
+            }
+            
+            .products-grid {
+                display: block;
+            }
+            
+            .product-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-white text-gray-900">
-  <!-- Header -->
-  <header class="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
-<div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<a href="https://dodoki.tz/" class="flex items-center gap-2">
-<img src="logo  Dodoki.jpg" alt="Dodoki Logo" class="h-10 w-auto rounded" />
-</a>
-<div>
-          <h1 class="text-xl font-semibold">Dodoki Investment Tanzania</h1>
-          <p class="text-xs text-gray-500">Veterinary &amp; livestock supplies</p>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo"><i class="logo Dodoki.jpg"></i>DODOKI</div>
+            <nav>
+                <ul>
+                    <li><a href="#poultry"><i class="fas fa-egg"></i> Poultry</a></li>
+                    <li><a href="#swine"><i class="fas fa-piggy-bank"></i> Swine</a></li>
+                    <li><a href="#ruminants"><i class="fas fa-cow"></i> Ruminants</a></li>
+                    <li><a href="#veterinary"><i class="fas fa-syringe"></i> Veterinary</a></li>
+                    <li><a href="#contact"><i class="fas fa-phone"></i> Contact</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-      <div class="hidden md:flex items-center gap-2">
-        <a class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-xl border focus-ring" href="tel:+255758335926">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          +255 758 335 926
-        </a>
-        <a class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-xl border focus-ring" href="tel:+255758786338">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          +255 758 786 338
-        </a>
-        <a class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-xl border focus-ring" href="mailto:sales@dodokiinvestmenttz.co.tz">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16v16H4z" fill="none"/><path d="M22 6l-10 7L2 6"/>
-          </svg>
-          sales@dodokiinvestmenttz.co.tz
-        </a>
-      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Quality Agricultural Products & Veterinary Supplies</h1>
+            <p>Your trusted partner for premium animal feed, medications, and farming equipment in Tanzania</p>
+            <a href="#products" class="btn"><i class="fas fa-shopping-basket"></i> Explore Our Products</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Search and Filter -->
+        <div class="search-filter">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search for products...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="category-buttons">
+                <button class="category-btn active" data-category="all"><i class="fas fa-boxes"></i> All Products</button>
+                <button class="category-btn" data-category="poultry"><i class="fas fa-egg"></i> Poultry</button>
+                <button class="category-btn" data-category="swine"><i class="fas fa-piggy-bank"></i> Swine</button>
+                <button class="category-btn" data-category="ruminants"><i class="fas fa-cow"></i> Ruminants</button>
+                <button class="category-btn" data-category="veterinary"><i class="fas fa-syringe"></i> Veterinary</button>
+                <button class="category-btn" data-category="fish"><i class="fas fa-fish"></i> Fish Feed</button>
+                <button class="category-btn" data-category="pet"><i class="fas fa-paw"></i> Pet Products</button>
+                <button class="category-btn" data-category="equipment"><i class="fas fa-tools"></i> Equipment</button>
+                <button class="category-btn" data-category="hygiene"><i class="fas fa-pump-soap"></i> Hygiene</button>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <h2 class="section-title">Our Complete Product Catalog</h2>
+            
+            <!-- Poultry Products -->
+            <h3 class="category-title" id="poultry"><i class="fas fa-egg"></i> POULTRY PRODUCTS</h3>
+            <div class="products-grid">
+                <!-- Poultry Complete Feed -->
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Complete Feed</div>
+                        <h3 class="product-name">Broiler pre-starter pellet 25kg</h3>
+                        <div class="product-price">85,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Complete Feed</div>
+                        <h3 class="product-name">Layer Grower Mash 50kg Bag from 5% Layer Concentrate</h3>
+                        <div class="product-price">65,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Complete Feed</div>
+                        <h3 class="product-name">Layer Mash 50kg Bag from 5% Layer Concentrate</h3>
+                        <div class="product-price">62,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poultry Premixes and Concentrates -->
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco-Layer concentrates 2.5%,25kg</h3>
+                        <div class="product-price">93,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco-Layer concentrates 5%,50kg</h3>
+                        <div class="product-price">147,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco-Layer concentrates 20%,50kg</h3>
+                        <div class="product-price">154,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco-broiler concentrates 30%,50kg</h3>
+                        <div class="product-price">156,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco-broiler concentrates 2.5%,25kg</h3>
+                        <div class="product-price">105,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco layer premix 0.2%</h3>
+                        <div class="product-price">186,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Intraco broiler premix 0.2%</h3>
+                        <div class="product-price">225,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Premixes</div>
+                        <h3 class="product-name">Meat and Bone Meal@50kg</h3>
+                        <div class="product-price">78,300 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poultry Vitamins and Additives -->
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Toxin binder@1kg</h3>
+                        <div class="product-price">12,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Dicalcium phosphate</h3>
+                        <div class="product-price">137,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">DCP 50kg</h3>
+                        <div class="product-price">125,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">DCP 1kg</h3>
+                        <div class="product-price">3,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Acid Powder @25kg</h3>
+                        <div class="product-price">137,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Acid Powder 3KG</h3>
+                        <div class="product-price">20,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Acid Powder 2KG</h3>
+                        <div class="product-price">14,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Acid Powder 1KG</h3>
+                        <div class="product-price">7,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Biotic Powder @1kg</h3>
+                        <div class="product-price">10,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Mould@25kg</h3>
+                        <div class="product-price">145,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Mould @3kg</h3>
+                        <div class="product-price">20,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Mould @1kg</h3>
+                        <div class="product-price">7,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita AD3EC 1 Ltr</h3>
+                        <div class="product-price">35,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita biotic liquid 1L</h3>
+                        <div class="product-price">23,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Digest 25KG</h3>
+                        <div class="product-price">105,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita DigestT 3Kg</h3>
+                        <div class="product-price">20,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita digest 2Kg</h3>
+                        <div class="product-price">14,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita digest 1Kg</h3>
+                        <div class="product-price">7,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Dry Comfort 25kg</h3>
+                        <div class="product-price">62,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita essential plus 1L</h3>
+                        <div class="product-price">39,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita fertifor 1L</h3>
+                        <div class="product-price">18,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Phoscal 1L</h3>
+                        <div class="product-price">15,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Biotic Liquid 1L</h3>
+                        <div class="product-price">15,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita levo 1L</h3>
+                        <div class="product-price">20,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Multivita Stress Plus 1L</h3>
+                        <div class="product-price">25,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita TF Gold Plus 1L</h3>
+                        <div class="product-price">18,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Vit AD3E 100/20/40 1L</h3>
+                        <div class="product-price">38,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Vit Complex Plus 1L</h3>
+                        <div class="product-price">36,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vita Vit Ese 200/50 1L</h3>
+                        <div class="product-price">27,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Vitafir-Gut Booster 1L</h3>
+                        <div class="product-price">30,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">Hi Aquapur 12L</h3>
+                        <div class="product-price">180,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">intraco Hi-aquapur @ 500mls</h3>
+                        <div class="product-price">11,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="poultry">
+                    <div class="product-info">
+                        <div class="product-category">Poultry Vitamins</div>
+                        <h3 class="product-name">intraco Hi-aquapur @ 11.4mls</h3>
+                        <div class="product-price">192,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swine Products -->
+            <h3 class="category-title" id="swine"><i class="fas fa-piggy-bank"></i> SWINE PRODUCTS</h3>
+            <div class="products-grid">
+                <!-- Complete Feed -->
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Intraco-Lactomash 25kg</h3>
+                        <div class="product-price">125,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Intraco lactomash @8kg</h3>
+                        <div class="product-price">45,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Intraco pig starter feed 50kg</h3>
+                        <div class="product-price">76,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Intraco pig fattening feed 50kg</h3>
+                        <div class="product-price">69,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Intraco pig fertillac feed 50kg</h3>
+                        <div class="product-price">68,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">50Kg Pig Starter Feed From 5% Starter Concentrate</h3>
+                        <div class="product-price">55,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Fertilac Sow Gilts Feed 50Kg Bag</h3>
+                        <div class="product-price">55,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Gestating Sows Feed 50Kg Bag</h3>
+                        <div class="product-price">47,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Lactating Sows Feed 50Kg Bag</h3>
+                        <div class="product-price">57,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Pig Fattening Finisher Feed 50kg Bag</h3>
+                        <div class="product-price">55,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Complete Feed</div>
+                        <h3 class="product-name">Pig Fattening Grower Feed 50Kg Bag</h3>
+                        <div class="product-price">58,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swine Premixes and Concentrates -->
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-Pig Fattening concentrate 5% 50kg</h3>
+                        <div class="product-price">152,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-Pig Fattening concentrate 15% 50kg</h3>
+                        <div class="product-price">138,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-Pig Fattening concentrate 25% 50kg</h3>
+                        <div class="product-price">134,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-pig Fertillac concentrate 5% 50kg</h3>
+                        <div class="product-price">158,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-pig Fertillac concentrate 15% 50kg</h3>
+                        <div class="product-price">144,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-pig Fertillac concentrate 20% 50kg</h3>
+                        <div class="product-price">145,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-pig Starter concentrate 30% 50kg</h3>
+                        <div class="product-price">134,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-pig Starter concentrate 15%50kg</h3>
+                        <div class="product-price">148,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-pig Starter concentrate 5% 50kg</h3>
+                        <div class="product-price">165,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Pig Premixes</div>
+                        <h3 class="product-name">Intraco-Piglet Prestarter Concentrate 35% 50kg</h3>
+                        <div class="product-price">210,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swine Additives and Vitamins -->
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Swine Additives</div>
+                        <h3 class="product-name">Hi Aquapur 12L</h3>
+                        <div class="product-price">180,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Swine Additives</div>
+                        <h3 class="product-name">intraco Hi-aquapur @ 500mls</h3>
+                        <div class="product-price">11,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="swine">
+                    <div class="product-info">
+                        <div class="product-category">Swine Additives</div>
+                        <h3 class="product-name">intraco Hi-aquapur @ 11.4mls</h3>
+                        <div class="product-price">192,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ruminants -->
+            <h3 class="category-title" id="ruminants"><i class="fas fa-cow"></i> RUMINANTS</h3>
+            <div class="products-grid">
+                <!-- Premixes,Concentrates and complete feed -->
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Feed</div>
+                        <h3 class="product-name">Fokkamel extra (milk replacer)</h3>
+                        <div class="product-price">137,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Feed</div>
+                        <h3 class="product-name">Intraco cattle concentrate 5%@25KG</h3>
+                        <div class="product-price">70,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Minerals, Vitamins and Additives -->
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma diary blocks@2kg</h3>
+                        <div class="product-price">5,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma diary blocks@3kg</h3>
+                        <div class="product-price">6,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma diary blocks@5kg</h3>
+                        <div class="product-price">9,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma diary blocks@10kg</h3>
+                        <div class="product-price">16,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma mineral blocks@2kg</h3>
+                        <div class="product-price">4,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma mineral blocks@3kg</h3>
+                        <div class="product-price">4,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma mineral blocks@5kg</h3>
+                        <div class="product-price">6,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">sanigma mineral blocks@10kg</h3>
+                        <div class="product-price">11,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra diary blocks @2kg</h3>
+                        <div class="product-price">5,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra diary blocks @3kg</h3>
+                        <div class="product-price">6,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra diary blocks @5kg</h3>
+                        <div class="product-price">9,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra diary blocks @10kg</h3>
+                        <div class="product-price">16,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra mineral blocks @2kg</h3>
+                        <div class="product-price">4,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra mineral blocks @3kg</h3>
+                        <div class="product-price">4,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra mineral blocks @5kg</h3>
+                        <div class="product-price">6,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ruminants">
+                    <div class="product-info">
+                        <div class="product-category">Ruminant Minerals</div>
+                        <h3 class="product-name">betra mineral blocks @10kg</h3>
+                        <div class="product-price">11,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Veterinary Medicines -->
+            <h3 class="category-title" id="veterinary"><i class="fas fa-syringe"></i> VETERINARY MEDICINES</h3>
+            <div class="products-grid">
+                <!-- Only showing a subset for brevity -->
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">ADENO(FAV 1)</h3>
+                        <div class="product-price">96,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">ASCATEN</h3>
+                        <div class="product-price">2,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">ASHISH-ASHIALBEN 1L</h3>
+                        <div class="product-price">18,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">ASHISH-ASHIALBEN 500MLS</h3>
+                        <div class="product-price">11,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">ASHISH-ASHIDOX G 1000G</h3>
+                        <div class="product-price">145,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More veterinary products would be listed here -->
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO CHEW LARGE (1000mg...)</h3>
+                        <div class="product-price">88,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO CHEW MEDIUM (500mg...)</h3>
+                        <div class="product-price">70,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO CHEW SMALL (250mg t...)</h3>
+                        <div class="product-price">55,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO SPOT-ON DOG - MEDIUM 500...</h3>
+                        <div class="product-price">76,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO SPOT-ON DOG - SMALL 250</h3>
+                        <div class="product-price">55,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO SPOT-ON DOG - LARGE 1000mg...</h3>
+                        <div class="product-price">95,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO CHEW 112GM</h3>
+                        <div class="product-price">50,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="veterinary">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Medicine</div>
+                        <h3 class="product-name">BRAVECTO CHEW EXTRA LARGE 1400MG</h3>
+                        <div class="product-price">98,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fish Feed -->
+            <h3 class="category-title" id="fish"><i class="fas fa-fish"></i> FISH FEED AND FEED INGREDIENTS</h3>
+            <div class="products-grid">
+                <div class="product-card" data-category="fish">
+                    <div class="product-info">
+                        <div class="product-category">Fish Feed</div>
+                        <h3 class="product-name">DIBAQ FISH OIL</h3>
+                        <div class="product-price">10,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="fish">
+                    <div class="product-info">
+                        <div class="product-category">Fish Feed</div>
+                        <h3 class="product-name">DIBAQ 1mm @2.5kg</h3>
+                        <div class="product-price">16,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="fish">
+                    <div class="product-info">
+                        <div class="product-category">Fish Feed</div>
+                        <h3 class="product-name">DIBAQ 1mm@5kg</h3>
+                        <div class="product-price">30,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More fish feed products would be listed here -->
+                <div class="product-card" data-category="fish">
+                    <div class="product-info">
+                        <div class="product-category">Fish Feed</div>
+                        <h3 class="product-name">DIBAQ MICROBAQ 0@20KG</h3>
+                        <div class="product-price">234,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="fish">
+                    <div class="product-info">
+                        <div class="product-category">Fish Feed</div>
+                        <h3 class="product-name">DIBAQ MICROBAQ 1 @20KG</h3>
+                        <div class="product-price">230,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="fish">
+                    <div class="product-info">
+                        <div class="product-category">Fish Feed</div>
+                        <h3 class="product-name">DIBAQ MICROBAQ 100 20kg</h3>
+                        <div class="product-price">112,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pet Products -->
+            <h3 class="category-title" id="pet"><i class="fas fa-paw"></i> DOG / CAT FEED AND PET PRODUCTS</h3>
+            <div class="products-grid">
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA- CATLESTBEEF @650GM</h3>
+                        <div class="product-price">10,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA -JOSDOG MIN @10KG</h3>
+                        <div class="product-price">85,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA FAMILY PLUS @12.5KG</h3>
+                        <div class="product-price">135,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA ACTIVE @15KG</h3>
+                        <div class="product-price">121,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA CULLINETIC 2KG</h3>
+                        <div class="product-price">30,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA HIGH ENERGY @12.5KG</h3>
+                        <div class="product-price">135,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA JOSDOG MIN 900GM</h3>
+                        <div class="product-price">12,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA JUNIOR @15KG</h3>
+                        <div class="product-price">128,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA KITTEN GRAIN FREE@2KG</h3>
+                        <div class="product-price">30,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pet">
+                    <div class="product-info">
+                        <div class="product-category">Pet Products</div>
+                        <h3 class="product-name">JOSERA REGULAR @15KG</h3>
+                        <div class="product-price">121,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipment -->
+            <h3 class="category-title" id="equipment"><i class="fas fa-tools"></i> VETERINARY EQUIPMENT AND SUPPLIES</h3>
+            <div class="products-grid">
+                <div class="product-card" data-category="equipment">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Equipment</div>
+                        <h3 class="product-name">Intraco-Set of Holder and Milk bottles</h3>
+                        <div class="product-price">230,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="equipment">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Equipment</div>
+                        <h3 class="product-name">needles</h3>
+                        <div class="product-price">400 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="equipment">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Equipment</div>
+                        <h3 class="product-name">feeder</h3>
+                        <div class="product-price">5,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More equipment products would be listed here -->
+                <div class="product-card" data-category="equipment">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Equipment</div>
+                        <h3 class="product-name">sterile syringe 20cc</h3>
+                        <div class="product-price">3,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="equipment">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Equipment</div>
+                        <h3 class="product-name">overall with zipper</h3>
+                        <div class="product-price">12,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="equipment">
+                    <div class="product-info">
+                        <div class="product-category">Veterinary Equipment</div>
+                        <h3 class="product-name">pill feeding</h3>
+                        <div class="product-price">5,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hygiene -->
+            <h3 class="category-title" id="hygiene"><i class="fas fa-pump-soap"></i> ANIMAL HYGIENE AND DISINFECTANTS</h3>
+            <div class="products-grid">
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Taktik@1000mls</h3>
+                        <div class="product-price">56,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Taktik@500mls</h3>
+                        <div class="product-price">33,600 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Delette all@1000mls</h3>
+                        <div class="product-price">100,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Dellete all@200mls</h3>
+                        <div class="product-price">33,600 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Intraco-Hi NET 10L</h3>
+                        <div class="product-price">170,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Intraco HI-Net 5L</h3>
+                        <div class="product-price">85,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">Intraco HI-Net 500mls</h3>
+                        <div class="product-price">10,500 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">intraco Hi-sweep-5L</h3>
+                        <div class="product-price">160,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">intraco Hi-sweep-500Mls</h3>
+                        <div class="product-price">18,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">intraco Hi-7-5L</h3>
+                        <div class="product-price">120,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="hygiene">
+                    <div class="product-info">
+                        <div class="product-category">Disinfectants</div>
+                        <h3 class="product-name">intraco Hi-7-500mls</h3>
+                        <div class="product-price">14,000 TZS</div>
+                        <div class="product-actions">
+                            <button class="inquiry-btn">Inquire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </header>
 
-  <!-- Hero -->
-  <section class="bg-gradient-to-b from-gray-50 to-white">
-    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-6 items-center">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Quality animal health products at fair prices</h2>
-        <p class="mt-3 text-gray-600">Browse our catalogue, search by name, and filter by category. Prices shown in Tanzanian Shillings (TZS).</p>
-        <div class="mt-5 flex gap-3 flex-wrap">
-          <a href="https://www.instagram.com/dodokiinvestment?utm_source=ig_web_button_share_sheet&igsh=ZGcycjQydzkwcmI1" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border focus-ring">
-            <!-- Instagram icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7zm0 2.5A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm5-2.75a.75.75 0 1 0 .75.75.75.75 0 0 0-.75-.75z"/></svg>
-            Instagram
-          </a>
-          <a href="https://www.facebook.com/profile.php?id=100065198761805" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border focus-ring">
-            <!-- Facebook icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2h-3a5 5 0 0 0-5 5v3H6v4h3v8z"/></svg>
-            Facebook
-          </a>
-          <a href="https://wa.me/255758335926" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border focus-ring">
-            <!-- WhatsApp icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A10 10 0 0 0 4.6 19.4L3 22l2.7-.7A10 10 0 1 0 20 3.9zm-8 16.1a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8.1 8.1 0 1 1 12 20z"/><path d="M16.2 13.6c-.2-.1-1.1-.6-1.3-.7-.2-.1-.4-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0-1-.5-1.8-1.1-2.5-1.9-.2-.3-.5-.6-.3-.8.1-.2.3-.3.5-.5.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2 1 .2 1.4.1.4-.1 1.1-.4 1.2-.9.1-.5.1-1 .1-1.1 0-.1-.2-.2-.4-.3z"/></svg>
-            WhatsApp
-          </a>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-tractor"></i> About Dodoki</h3>
+                    <p>We provide high-quality agricultural products, animal feed, veterinary medicines, and farming equipment to support Tanzania's growing agricultural sector.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-phone"></i> Contact Us</h3>
+                    <p>Email: info@dodoki.co.tz</p>
+                    <p>Phone: +255 XXX XXX XXX</p>
+                    <p>Address: Dodoki Headquarters, Tanzania</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> Quick Links</h3>
+                    <a href="#poultry">Poultry Products</a>
+                    <a href="#swine">Swine Products</a>
+                    <a href="#ruminants">Ruminant Products</a>
+                    <a href="#veterinary">Veterinary Medicines</a>
+                    <a href="#fish">Fish Feed</a>
+                    <a href="#pet">Pet Products</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Dodoki. All rights reserved. Prices subject to change.</p>
+            </div>
         </div>
-      </div>
-      <div class="card p-4">
-        <div class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input id="searchInput" class="flex-1 border rounded-xl px-3 py-2 focus-ring" placeholder="Search product name..." />
-        </div>
-        <div class="mt-3 flex flex-wrap items-center gap-2">
-          <div id="categoryBadges" class="flex flex-wrap gap-2"></div>
-          <div class="ml-auto flex gap-2 items-center">
-            <label class="text-sm text-gray-500">Sort:</label>
-            <select id="sortSelect" class="border rounded-xl px-3 py-2 text-sm focus-ring">
-              <option value="relevance">Relevance</option>
-              <option value="priceAsc">Price (Low → High)</option>
-              <option value="priceDesc">Price (High → Low)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <!-- Catalogue -->
-  <section id="catalogue">
-    <div class="max-w-6xl mx-auto px-4 pb-16">
-      <div class="overflow-x-auto rounded-2xl border">
-        <table class="min-w-full text-sm" id="productTable">
-          <thead class="bg-gray-50">
-            <tr class="text-left">
-              <th class="px-4 py-3">S/N</th>
-              <th class="px-4 py-3">Product</th>
-              <th class="px-4 py-3">Category</th>
-              <th class="px-4 py-3">Price (TZS)</th>
-            </tr>
-          </thead>
-          <tbody id="productTbody"></tbody>
-        </table>
-      </div>
-      <div id="countInfo" class="mt-4 text-sm text-gray-500"></div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="bg-gray-50 border-t">
-    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-5">
-      <div>
-        <h3 class="text-lg font-semibold">Contact</h3>
-        <p class="mt-2 text-gray-600">Reach out for orders, quotes, or delivery options.</p>
-      </div>
-      <div class="space-y-2">
-        <a href="tel:+255758335926" class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
-          </svg> +255 758 335 926</a>
-        <a href="tel:+255758786338" class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.57 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.14a2 2 0 0 1 2.11-.45c.75.27 1.54.45 2.35.57A2 2 0 0 1 22 16.92z"/>
-          </svg> +255 758 786 338</a>
-        <a href="mailto:sales@dodokiinvestmenttz.co.tz" class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16v16H4z" fill="none"/><path d="M22 6l-10 7L2 6"/>
-          </svg> sales@dodokiinvestmenttz.co.tz</a>
-      </div>
-      <div>
-        <div class="flex flex-col gap-2">
-          <a class="inline-flex items-center gap-2" href="https://www.instagram.com/dodokiinvestment?utm_source=ig_web_button_share_sheet&igsh=ZGcycjQydzkwcmI1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7zm0 2.5A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm5-2.75a.75.75 0 1 0 .75.75.75.75 0 0 0-.75-.75z"/></svg>
-            @dodokiinvestment</a>
-          <a class="inline-flex items-center gap-2" href="https://www.facebook.com/profile.php?id=100065198761805">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2h-3a5 5 0 0 0-5 5v3H6v4h3v8z"/></svg>
-            Dodoki Investment Tanzania</a>
-          <a class="inline-flex items-center gap-2" href="https://wa.me/255758335926">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A10 10 0 0 0 4.6 19.4L3 22l2.7-.7A10 10 0 1 0 20 3.9zm-8 16.1a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8.1 8.1 0 1 1 12 20z"/><path d="M16.2 13.6c-.2-.1-1.1-.6-1.3-.7-.2-.1-.4-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.1-.5 0-1-.5-1.8-1.1-2.5-1.9-.2-.3-.5-.6-.3-.8.1-.2.3-.3.5-.5.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.1.1-.2 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.3-.5-.3h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5.5.2.9.3 1.2.4.5.2 1 .2 1.4.1.4-.1 1.1-.4 1.2-.9.1-.5.1-1 .1-1.1 0-.1-.2-.2-.4-.3z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-        <div class="mt-4">
-          <a href="#catalogue" class="inline-flex items-center px-4 py-2 rounded-2xl border focus-ring">Browse Catalogue</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="border-t">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500 flex items-center justify-between">
-      <span>© <span id="year"></span> Next Centurey (NC) 2025</span>
-      <!--<span>Prices subject to change without notice.</span>-->
-    </div>
-  </footer>
-
-  <script>
-    // Products (subset). Add more entries to extend the catalogue.
-    const PRODUCTS = [
-      { no: 1, name: "ADENO(FAV 1)", category: "veterinary equipment and supplies", price: 96000 },
-      { no: 2, name: "ASCATEN", category: "veterinary equipment and supplies", price: 2500 },
-      { no: 3, name: "ASHISH-ASHIALBEN 1L", category: "veterinary equipment and supplies", price: 18000 },
-      { no: 4, name: "ASHISH-ASHIALBEN 500MLS", category: "veterinary equipment and supplies", price: 11500 },
-      { no: 5, name: "ASHISH-ASHIDOX G 1000G", category: "veterinary equipment and supplies", price: 145000 },
-      { no: 6, name: "ASHISH-ASHIDOX G 100G", category: "veterinary equipment and supplies", price: 16000 },
-      { no: 7, name: "ASHISH-ASHIENRO BH ORAL,100MLS", category: "veterinary equipment and supplies", price: 14000 },
-      { no: 8, name: "ASHISH-ASHIENRO 10% ORAL LIQUID 1L", category: "veterinary equipment and supplies", price: 65000 },
-      { no: 9, name: "ASHISH-ASHIENRO 10% ORAL LIQUID 100ml", category: "veterinary equipment and supplies", price: 9000 },
-      { no: 10, name: "ASHISH-ASHIENRO 10% 100ml", category: "veterinary equipment and supplies", price: 9500 },
-      { no: 11, name: "ASHISH-ASHOXY 10% 100ML INJECTION", category: "veterinary equipment and supplies", price: 6500 },
-      { no: 12, name: "ASHISH-ASHOXY 20% LA INJECTION 100ML", category: "veterinary equipment and supplies", price: 8500 },
-      { no: 13, name: "ASHISH- ASAMPRO 20%@25GM", category: "veterinary equipment and supplies", price: 4000 },
-      { no: 14, name: "ASHISH-ASAMPRO 20%, 100GM", category: "veterinary equipment and supplies", price: 9000 },
-      { no: 15, name: "ASHISH-ASHOXY 20% LA 100MLS", category: "veterinary equipment and supplies", price: 10500 },
-      { no: 16, name: "ASHISH-ASHOXY 20% 100GM", category: "veterinary equipment and supplies", price: 13000 },
-      { no: 17, name: "ASHISH-ASHOXY 20% 25GM", category: "veterinary equipment and supplies", price: 3500 },
-      { no: 18, name: "ASHISH-ASHOXY CHICK 100GM", category: "veterinary equipment and supplies", price: 7000 },
-      { no: 19, name: "ASHISH-ASHULPHA 5", category: "veterinary equipment and supplies", price: 1000 },
-      { no: 20, name: "ASHISH-ASHIVITA POWDER 100G", category: "veterinary equipment and supplies", price: 5000 },
-      { no: 21, name: "ASHISH-ASHPIRAZINE 100G", category: "veterinary equipment and supplies", price: 8000 },
-      { no: 22, name: "ASHISH-ASHPIRAZINE 1KG", category: "veterinary equipment and supplies", price: 70000 },
-      { no: 23, name: "ASHISH-ASHTYL 20% 100GM", category: "veterinary equipment and supplies", price: 11000 },
-      { no: 24, name: "ASHISH-ASTRISUL 1KG", category: "veterinary equipment and supplies", price: 120000 },
-      { no: 25, name: "ASHISH-ASTRISUL 480 @100GM", category: "veterinary equipment and supplies", price: 14000 },
-      { no: 26, name: "ASHISH-ASTRISUL 480@25GM", category: "veterinary equipment and supplies", price: 5000 },
-      { no: 27, name: "ASHISH-DIMINASHISH PLUS 2.37g", category: "veterinary equipment and supplies", price: 1000 },
-      { no: 28, name: "ASHISH-DIMINASHISH PLUS 2.36g", category: "veterinary equipment and supplies", price: 1000 },
-      { no: 29, name: "ASHISH-TRYPASHISH 1g", category: "veterinary equipment and supplies", price: 10000 },
-      { no: 30, name: "ASHISH-TRYPASHISH 250g", category: "veterinary equipment and supplies", price: 6000 },
-      { no: 31, name: "ASHISH -ASTRISUL 480@5GM", category: "veterinary equipment and supplies", price: 3000 },
-      { no: 32, name: "ASHISH -ASTRISUL INJECTION-100MLS", category: "veterinary equipment and supplies", price: 12000 },
-      { no: 33, name: "Ashpirazine 100g", category: "veterinary equipment and supplies", price: 8000 },
-      { no: 34, name: "Ashtyl 20% - 100gm", category: "veterinary equipment and supplies", price: 11000 },
-      { no: 35, name: "ASHTYL 20% 100ML INJECTION", category: "veterinary equipment and supplies", price: 11000 },
-      { no: 36, name: "Ashtyl 20% 1kg", category: "veterinary equipment and supplies", price: 90000 },
-      { no: 37, name: "Ashish zerokrim CH bolus", category: "veterinary equipment and supplies", price: 1500 },
-      { no: 38, name: "BRAVECTO CHEW LARGE (1000mg)", category: "animal hygiene and disinfectant", price: 88000 },
-      { no: 39, name: "BRAVECTO CHEW MEDIUM (500mg)", category: "animal hygiene and disinfectant", price: 70000 },
-      { no: 40, name: "BRAVECTO CHEW SMALL (250mg)", category: "animal hygiene and disinfectant", price: 55000 },
-      { no: 41, name: "BRAVECTO SPOT-ON DOG - MEDIUM 500", category: "animal hygiene and disinfectant", price: 76000 },
-      { no: 42, name: "BRAVECTO SPOT-ON DOG - SMALL 250", category: "animal hygiene and disinfectant", price: 55000 },
-      { no: 43, name: "BRAVECTO SPOT-ON DOG - LARGE 1000mg", category: "animal hygiene and disinfectant", price: 95000 },
-      { no: 44, name: "BRAVECTO CHEW 112GM", category: "animal hygiene and disinfectant", price: 50000 },
-      { no: 45, name: "BRAVECTO CHEW EXTRA LARGE 1400MG", category: "animal hygiene and disinfectant", price: 98000 },
-      { no: 46, name: "Delette all@1000mls", category: "veterinary equipment and supplies", price: 100000 },
-      { no: 47, name: "Dellete all@200mls", category: "veterinary equipment and supplies", price: 33600 },
-      { no: 48, name: "sanigma diary blocks@2kg", category: "mineral,vitamins and additives", price: 5000 },
-      { no: 49, name: "sanigma diary blocks@3kg", category: "mineral,vitamins and additives", price: 6000 },
-      { no: 50, name: "sanigma diary blocks@5kg", category: "mineral,vitamins and additives", price: 9000 }
-    ];
-
-    const currency = new Intl.NumberFormat('en-TZ', { style: 'currency', currency: 'TZS', maximumFractionDigits: 0 });
-
-    const tbody = document.getElementById('productTbody');
-    const searchInput = document.getElementById('searchInput');
-    const sortSelect = document.getElementById('sortSelect');
-    const categoryBadges = document.getElementById('categoryBadges');
-    const countInfo = document.getElementById('countInfo');
-    const yearSpan = document.getElementById('year');
-
-    yearSpan.textContent = new Date().getFullYear();
-
-    const categories = Array.from(new Set(PRODUCTS.map(p => p.category)));
-    let activeCategory = 'All';
-
-    function renderBadges() {
-      const all = ['All', ...categories];
-      categoryBadges.innerHTML = '';
-      all.forEach(c => {
-        const b = document.createElement('button');
-        b.className = 'badge focus-ring ' + (activeCategory === c ? 'ring-2 ring-black' : '');
-        b.textContent = c;
-        b.onclick = () => { activeCategory = c; render(); renderBadges(); };
-        categoryBadges.appendChild(b);
-      });
-    }
-
-    function applyFilters() {
-      const q = (searchInput.value || '').toLowerCase();
-      let rows = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
-      if (activeCategory !== 'All') rows = rows.filter(p => p.category === activeCategory);
-      const sort = sortSelect.value;
-      if (sort === 'priceAsc') rows.sort((a,b) => a.price - b.price);
-      if (sort === 'priceDesc') rows.sort((a,b) => b.price - a.price);
-      return rows;
-    }
-
-    function render() {
-      const data = applyFilters();
-      tbody.innerHTML = '';
-      data.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.className = 'border-t hover:bg-gray-50';
-        tr.innerHTML = `
-          <td class="px-4 py-3 font-medium">${p.no}</td>
-          <td class="px-4 py-3">${p.name}</td>
-          <td class="px-4 py-3"><span class="badge">${p.category}</span></td>
-          <td class="px-4 py-3 font-semibold">${currency.format(p.price)}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-      if (data.length === 0) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = '<td class="px-4 py-6 text-center text-gray-500" colspan="4">No items match your search.</td>';
-        tbody.appendChild(tr);
-      }
-      countInfo.textContent = `Showing ${data.length} of ${PRODUCTS.length} items. Add more products in the script to complete the catalogue.`;
-    }
-
-    searchInput.addEventListener('input', render);
-    sortSelect.addEventListener('change', render);
-
-    renderBadges();
-    render();
-  </script>
+    <script>
+        // Category filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            // Category filter function
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const category = button.getAttribute('data-category');
+                    
+                    // Show/hide products based on category
+                    productCards.forEach(card => {
+                        if (category === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            if (card.getAttribute('data-category') === category) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Search function
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                productCards.forEach(card => {
+                    const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                    const productCategory = card.querySelector('.product-category').textContent.toLowerCase();
+                    
+                    if (productName.includes(searchTerm) || productCategory.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a, .footer-section a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
